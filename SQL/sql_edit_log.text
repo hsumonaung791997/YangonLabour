@@ -1,0 +1,9 @@
+sql noTE
+- inspection_inform_table 
+inspectedtimes - first, second, 
+inspectinotype - no, re
+
+
+6/Sep/2019 
+- ADD Table 'shop_inspections'
+- ADD Table 'shop_workers'

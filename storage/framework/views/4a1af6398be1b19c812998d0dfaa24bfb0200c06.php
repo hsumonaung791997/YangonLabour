@@ -1,0 +1,745 @@
+<?php $__env->startSection('content'); ?>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="<?php echo e(asset('assets/js/common.js')); ?>"></script>
+
+<script type='text/javascript'>
+$(function(){
+$('#datepicker').datepicker({
+    calendarWeeks: true,
+    todayHighlight: true,
+    autoclose: true
+});  
+});
+$(function(){
+$('#datepicker1').datepicker({
+    calendarWeeks: true,
+    todayHighlight: true,
+    autoclose: true
+});  
+});
+</script>
+    <?php if($errors->any()): ?>
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+    </div>
+    <?php endif; ?>
+        <?php if(session()->get('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span class="alert-inner--icon"></span>
+                <span class="alert-inner--text">  <?php echo e(session()->get('success')); ?>  </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+        
+        
+   
+
+    <h1 style="text-align:center;margin-bottom:40px;">ပြည်ထောင်စုသမ္မတမြန်မာနိုင်ငံတော်<br>အလုပ်သမား၊ လူဝင်မှုကြီးကြပ်ရေးနှင့် ပြည်သူ့အင်အားဝန်ကြီးဌာန<br>အလုပ်ရုံနှင့် အလုပ်သမားဥပ ဒေစစ်ဆေးရေးဦးစီးဌာန<br>လုပ်ငန်းခွင်ထိခိုက်မှုအကြောင်းကြားခြင်းပုံစံ</h1>
+    <div style="text-align:center;margin-top:40px;">
+	    <a  style="text-decoration: none;" onclick="nextPrevv(0)"><span class="step">1</span></a>
+	    <span class="step" onclick="nextPrevv(1)">2</span>
+	    <span class="step" onclick="nextPrevv(2)">3</span>
+	</div> <br>
+    
+    <div class="tab"> 
+        <p>
+            <div class="row">
+                <div class="col-sm-1">
+                    
+                </div>
+                <div class="col-sm-5 text-center">
+                    <input type="text" name="factoryname" id="factoryname" class="form-control" placeholder="လုပ်ငန်းအမည် ရှာရန်..." />
+                    <div id="factoryList">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button id="search">ရှာရန်</button>
+                </div>
+                <div class="col-sm-3 text-right mb-2">
+                    <div class="pull-right">
+                        <a class="btn" style="background:#2F8DD8;color:#fff;" href="<?php echo e(route('AffectedIndex.index')); ?>"> ပြန်ထွက်</a>
+                    </div>
+                </div>
+            </div>
+        </p> 
+
+
+    <form id="affectform" class="form-background" action="<?php echo e(route('AffectedIndex.store')); ?>" method="post" enctype="multipart/form-data">
+     <?php echo e(csrf_field()); ?>
+
+        
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4 text-right">
+                                <label for="Type">ထိခိုက်မှုအကြောင်းကြားခြင်းပုံစံ ရွေးရန် </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="Type" name="Type" class="form-control">
+                                    <option value="1">စက်ရုံ၊ အလုပ်ရုံ</option>
+                                    <option value="2"> ဆိုင်နှင့်အလုပ်ဌာန</option>
+                                </select>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+        
+        <input type="hidden" name="township_id" id="township_id" >
+         
+            
+        <div id="factory">
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">လုပ်ငန်းဆိုင်ရာအချက်အလက်များ</legend>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Factory_IDno">စက်ရုံအမှတ် <span style="color:red">*</span></label>
+                                    <input  id="Factory_IDno" class="form-control" name="Factory_IDno" value="<?php echo e(old('Factory_IDno')); ?>">
+                                    </div>
+                                    
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Factory_Name">စက်ရုံအမည် <span style="color:red">*</span></label>
+                                    <input  id="Factory_Name" class="form-control" name="Factory_Name" value="<?php echo e(old('Factory_Name')); ?>">
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="OwnerName">ပိုင်ရှင်အမည် <span style="color:red">*</span></label>
+                                    <input id="OwnerName" class="form-control" name="OwnerName" value="<?php echo e(old('OwnerName')); ?>">
+                                    </div>
+                                    
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Factory_Type">လုပ်ငန်းအမျိုးအစား <span style="color:red">*</span></label>
+                                    <input  id="Factory_Type" class="form-control" name="Factory_Type" value="<?php echo e(old('Factory_Type')); ?>">
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Factory_Phno">ဖုန်းနံပါတ် <span style="color:red">*</span></label>
+                                    <input id="Factory_Phno" class="form-control" name="Factory_Phno" value="<?php echo e(old('Factory_Phno')); ?>">
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Factory_Address">လိပ်စာ <span style="color:red">*</span></label>
+                                    <input  id="Factory_Address" class="form-control" name="Factory_Address" value="<?php echo e(old('Factory_Address')); ?>">
+                                    </div>
+                                </div>
+					    </fieldset>
+            
+                    </div>
+                </div>
+            </div>
+            <div id="shop" style="display:none;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">လုပ်ငန်းဆိုင်ရာအချက်အလက်များ</legend>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Shop_IDno">ဆိုင်အမှတ် <span style="color:red">*</span></label>
+                                    <input  id="Shop_IDno" class="form-control" name="Shop_IDno" value="<?php echo e(old('Shop_IDno')); ?>">
+                                    </div>
+                                    
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Shop_Name">ဆိုင်အမည် <span style="color:red">*</span></label>
+                                        <input  id="Shop_Name" class="form-control" name="Shop_Name" value="<?php echo e(old('Shop_IDno')); ?>">
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="ShopOwnerName">ပိုင်ရှင်အမည် <span style="color:red">*</span></label>
+                                        <input id="ShopOwnerName" class="form-control" name="ShopOwnerName" value="<?php echo e(old('ShopOwnerName')); ?>">
+                                    </div>
+                                    
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Shop_Type">လုပ်ငန်းအမျိုးအစား <span style="color:red">*</span></label>
+                                        <input  id="Shop_Type" class="form-control" name="Shop_Type" value="<?php echo e(old('Shop_Type')); ?>">
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Shop_Phno">ဖုန်းနံပါတ် <span style="color:red">*</span></label>
+                                        <input id="Shop_Phno" class="form-control" name="Shop_Phno" value="<?php echo e(old('Shop_Phno')); ?>">
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="Shop_Address">လိပ်စာ <span style="color:red">*</span></label>
+                                        <input  id="Shop_Address" class="form-control" name="Shop_Address" value="<?php echo e(old('Shop_Address')); ?>">
+                                    </div>
+                                </div>
+					    </fieldset>
+            
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">လုပ်ငန်းခွင် ထိခိုက်သူဆိုင်ရာ အချက်အလက်များ</legend>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="empName">အမည် <span style="color:red">*</span></label>
+                                        <input  id="empName" class="form-control" name="empName" value="<?php echo e(old('empName')); ?>" required>
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="empAge">အသက် နှင့် လုပ်သက် <span style="color:red">*</span></label>
+                                        <input id="empAge" class="form-control" name="empAge" value="<?php echo e(old('empAge')); ?>">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="empGender">လိင် <span style="color:red">*</span></label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="custom-control custom-radio mb-3">
+                                                    <input  class="custom-control-input" id="empGender1" name="empGender" type="radio" value="ကျား" checked>
+                                                    <label class="custom-control-label" for="empGender1">ကျား</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="custom-control custom-radio mb-3">
+                                                    <input  class="custom-control-input" id="empGender2" name="empGender" type="radio" value="မ" <?php if(old('empGender')=='မ'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="empGender2">မ</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="empLvl">ရာထူး နှင့် တာ၀န် <span style="color:red">*</span></label>
+                                        <input id="empLvl" class="form-control" name="empLvl" value="<?php echo e(old('emoLvl')); ?>">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="empLama">လမဖ အကျုံး၀င်မှု ရှိ/မရှိ <span style="color:red">*</span></label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="custom-control custom-radio mb-3">
+                                                    <input  class="custom-control-input" id="empLama1" name="empLama" type="radio" value="ရှိ" checked>
+                                                    <label class="custom-control-label" for="empLama1">ရှိ</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="custom-control custom-radio mb-3">
+                                                    <input  class="custom-control-input" id="empLama2" name="empLama" type="radio" value="မရှိ" <?php if(old('emplama')=='မရှိ'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="empLama2">မရှိ</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="empPhno">ဖုန်းနံပါတ် <span style="color:red">*</span></label>
+                                        <input id="empPhno" class="form-control" name="empPhno" value="<?php echo e(old('empPhno')); ?>">
+                                    </div>
+                                   
+                                </div>
+					    </fieldset>
+            
+                    </div>
+                </div>
+                
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">ထိခိုက်မှုဆိုင်ရာအချက်အလက်များ</legend>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="accDay">ထိခိုက်မှုဖြစ်ပွားသည့်နေ့ရက် <span style="color:red">*</span></label>
+                                        <input id="datepicker accDay" class="datepicker form-control" type="date" name="accDay" value="<?php echo e(old('accDay')); ?>">
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="accTime">အချိန် <span style="color:red">*</span></label>
+                                        <input type="time" id="accTime" class="form-control" name="accTime" value="<?php echo e(old('accTime')); ?>">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="accPlace">နေရာ <span style="color:red">*</span></label>
+                                        <input id="accPlace" class="form-control" name="accPlace" value="<?php echo e(old('accPlace')); ?>">
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="accType">အမျိုးအစား <span style="color:red">*</span></label>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="custom-control custom-checkbox mb-3">
+                                                    <input  class="custom-control-input" id="accType1" name="accType" type="checkbox" value="ရှေးဦးသူနာပြု" <?php if(old('accType')=='ရှေးဦးသူနာပြု'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="accType1">ရှေးဦးသူနာပြု</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="custom-control custom-checkbox mb-3">
+                                                    <input  class="custom-control-input" id="accType2" name="accType" type="checkbox" value="သာမန်" <?php if(old('accType')=='သာမန်'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="accType2">သာမန်</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="custom-control custom-checkbox mb-3">
+                                                    <input  class="custom-control-input" id="accType3" name="accType" type="checkbox" value="ပြင်းထန်" <?php if(old('accType')=='ပြင်းထန်'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="accType3">ပြင်းထန်</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="custom-control custom-checkbox mb-3">
+                                                    <input  class="custom-control-input" id="accType4" name="accType" type="checkbox" value="အလွန်ပြင်းထန်" <?php if(old('accType')=='အလွန်ပြင်းထန်'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="accType4">အလွန်ပြင်းထန်</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="custom-control custom-checkbox mb-3">
+                                                    <input  class="custom-control-input" id="accType5" name="accType" type="checkbox" value="သေဆုံး" <?php if(old('accType')=='သေဆုံး'): ?> checked <?php endif; ?>>
+                                                    <label class="custom-control-label" for="accType5">သေဆုံး</label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 text-center">
+                                        <label for="accDetail">ဖြစ်စဉ်အကျဉ်း <span style="color:red">*</span></label>
+                                        
+                                        <textarea name="accDetail" id="accDetail" class="col-sm-12" rows="6"><?php echo e(old('accDetail')); ?></textarea>
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <label for="accLeave">ခန့်မှန်းအလုပ်ပျက်ရက် <span style="color:red">*</span></label>
+                                        <input  id="accLeave" class="form-control" name="accLeave" value="<?php echo e(old('accLeave')); ?>">
+                                    </div>
+                                   
+                                </div>
+					    </fieldset>
+            
+                    </div>
+                </div>
+            </div>
+            <div class="tab">
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">ထိခိုက်ဒဏ်ရာ အမျိုးအစား <span style="color:red">*</span></legend>
+                                <div class="row">
+                                    <div class="col-sm-12 text-left">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <select name="painType" id="painType" class="form-control">
+                                                <option value="">ထိခိုက်ဒဏ်ရာ အမျိုးအစား ရွေးရန်
+                                                    </option>
+                                                <?php $__currentLoopData = $affected_type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($a->affected_code); ?>"><?php echo e($a->affected_name); ?></option> 
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                        </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>                            
+					    </fieldset>
+            
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">ထိခိုက်ဒဏ်ရာ ရရှိသည့်အစိတ်အပိုင်း <span style="color:red">*</span></legend>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <select name="painPart" id="painPart" class="form-control">
+                                        <option value="">ထိခိုက်ဒဏ်ရာ ခန္ဓာကိုယ်အစိတ်အပိုင်း ရွေးရန်
+                                            </option>
+                                        <?php $__currentLoopData = $affected_body; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($a->body_code); ?>"><?php echo e($a->body_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-5">
+                                    <select name="painPiece" id="painPiece" class="form-control">
+                                        <option value="">ထိခိုက်ဒဏ်ရာ အစိတ်အပိုင်း ရွေးရန်
+                                            </option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-sm-6 m-2">
+                                        <select name="painArea" id="painArea" class="form-control">
+                                            <option value="">ထိခိုက်မှု ရရှိသည့် ဘက် ရွေးရန်(ဘယ်ဘက် , ညာဘက် , နှစ်ဖက်စလုံး) </option>
+                                             <option value="1">ဘယ်ဘက်</option>
+                                             <option value="2">ညာဘက်</option>
+                                             <option value="3">နှစ်ဖက်စလုံး</option>
+                                        </select>
+                                </div>
+
+
+                                            
+					    </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="scheduler-border">
+					    <legend class="scheduler-border">ဖြစ်ပွားရသည့်အကြောင်းအရင်း <span style="color:red">*</span></legend>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <select name="painCase" id="painCase" class="form-control">
+                                        <option value="">ဖြစ်ပွားရသည့်အကြောင်းအရင်း ရွေးရန်</option>
+                                        <?php $__currentLoopData = $impact_type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($i->impact_no); ?>"><?php echo e($i->impact_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                </div>
+                                <div class="col-sm-5">
+                                    <select name="painCase_des" id="painCase_des" class="form-control">
+                                        <option value="">လုပ်ငန်းခွင် ထိခိုက်မှု အမျိုးအစား ရွေးရန်
+                                            </option>
+                                    </select>
+                                </div>
+                                            
+                                            
+                                        </div>
+					    </fieldset>
+                    </div>
+                </div>
+        </div>
+        <div class="tab">
+	  	<div class="row">
+		  		<div class="col-sm-4 text-right">
+		  			<label for="affectedInform1">လုပ်ငန်းခွင် ထိခိုက်မှု အစီရင်ခံစာ တင်ပြအကြောင်းကြားစာ(၁)</label>
+		  		</div>
+		  		<div class="col-sm-8">
+		  	 		<input type="file" name="affectedInform1" id='affectedInform1' class="form-control">
+		  		</div>
+	  		</div>
+              <div class="blank10"></div>
+
+		<div class="row">
+		  		<div class="col-sm-4 text-right">
+		  			<label for="affectedInform2">
+                      လုပ်ငန်းခွင် ထိခိုက်မှု အစီရင်ခံစာ တင်ပြအကြောင်းကြားစာ(၂)
+					</label>
+		  		</div>
+		  		<div class="col-sm-8">
+		  	 		<input type="file"  name="affectedInform2" id='affectedInform2' class="form-control">
+		  		</div>
+		  	</div>
+              <div class="blank10"></div>
+	  	<div class="row">
+	  		<div class="col-sm-4 text-right">
+	  			<label for="affectedInform3">
+                  လုပ်ငန်းခွင် ထိခိုက်မှု အစီရင်ခံစာ တင်ပြအကြောင်းကြားစာ(၃)
+
+				</label>
+	  		</div>
+	  		<div class="col-sm-8">
+	  	 		<input type="file"  name="affectedInform3" id='affectedInform3' class="form-control">
+	  		</div>
+	  	</div>
+          <div class="blank10"></div>
+	  	<div class="row">
+	  		<div class="col-sm-4 text-right">
+	  			<label for="affectedInform4">လုပ်ငန်းခွင် ထိခိုက်မှု အစီရင်ခံစာ တင်ပြအကြောင်းကြားစာ(၄)</label>
+	  		</div>
+	  		<div class="col-sm-8">
+	  	 		<input type="file"  name="affectedInform4" id='affectedInform4' class="form-control">
+	  		</div>
+	  	</div>
+          <div class="blank10"></div>
+	  	<div class="row">
+	  		<div class="col-sm-4 text-right">
+	  			<label for="affectedInform5">လုပ်ငန်းခွင် ထိခိုက်မှု အစီရင်ခံစာ တင်ပြအကြောင်းကြားစာ(၅)</label>
+	  		</div>
+	  		<div class="col-sm-8">
+	  	 		<input type="file" name="affectedInform5" id='affectedInform5' class="form-control">
+	  		</div>
+	  	</div>
+
+	  		 
+	  </div>
+        
+<div class="blank10"></div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">ရှေ့တစ်မျက်နှာ</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">နောက်တစ်မျက်နှာ</button>
+            </div>
+        </div>
+      
+</form>
+<!-- scroll back to top of the page -->
+<a id="back2Top" title="Back to top" href="#">&#10148;</a>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#Type').on('change', function() {
+      if ( this.value == '1')
+      {
+           $("#shop").hide();
+        $("#factory").show();
+      }
+      else if( this.value == '2')
+      {
+          $("#factory").hide();
+        $("#shop").show();
+      }
+       else  
+      {
+        $("#factory").show();
+        $("#shop").hide();
+      }
+    });
+
+    $('#painPart').change(function(){ 
+	   var id = $(this).val();
+	   if(id != '')
+	   {
+		$.ajax({
+		 url:"<?php echo e(route('PainPartSection.fetch')); ?>",
+		 method:"GET",
+		 data:{id:id},
+		 success:function(data){
+			console.log(data);
+			$.each(data, function (i, item) {
+					$('#painPiece').append($('<option>', { 
+						value: item.peice_no,
+						text : item.peice_name 
+					}));
+				});
+		   }
+		});
+	   }
+   });
+
+   $('#painCase').change(function(){ 
+	   var id = $(this).val();
+	   if(id != '')
+	   {
+		$.ajax({
+		 url:"<?php echo e(route('PainCaseSection.fetch')); ?>",
+		 method:"GET",
+		 data:{id:id},
+		 success:function(data){
+			console.log(data);
+			$.each(data, function (i, item) {
+					$('#painCase_des').append($('<option>', { 
+						value: item.case_des_no,
+						text : item.case_des_name 
+					}));
+				});
+		   }
+		});
+	   }
+   });
+
+
+});
+</script>
+ <script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "သိမ်းဆည်းမည်";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "နောက်တစ်မျက်နှာ";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  // if (n == 1 && !validateForm()) return false;
+  // // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+	$("#tempoary").val('save');
+    document.getElementById("affectform").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+function nextPrevv(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  // if (n == 1 && !validateForm()) return false;
+  // // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab =n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("affectform").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+
+
+$(document).ready(function(){
+
+$('#factoryname').keyup(function(){ 
+       var query = $(this).val();
+       var type = $('#Type').val();
+       if(query != '')
+       {
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+         url:"<?php echo e(route('prosecutedautocomplete.prosecutedfetch')); ?>",
+         method:"POST",
+         data:{query:query, type:type,_token:_token},
+         success:function(data){
+              $('#factoryList').fadeIn();  
+              $('#factoryList').html(data);
+              
+           }
+        });
+       }
+   });
+
+   $(document).on('click', 'li', function(){  
+       $('#factoryname').val($(this).text());  
+       $('#factoryList').fadeOut();  
+   });  
+
+   
+});
+
+$( "#search" ).click(function() {
+ var query = $('#factoryname').val();
+ var type = $('#Type').val();
+              $.ajax({
+                   type: 'GET', //THIS NEEDS TO BE GET
+                   url: '<?php echo e(route('prosecutedautocomplete.prosecuteddata')); ?>',
+                   data:{name:query,type:type},
+                   success: function (data) {
+                       console.log(data);
+                    
+                       if(data.type="1"){
+                            $('#Factory_IDno').val(data.FactoryId);
+                            $('#Factory_Name').val(data.FactoryName);
+                            $('#Factory_Address').val(data.FactoryAddress);
+                            $('#OwnerName').val(data.OwnerName);
+                            $('#Factory_Phno').val(data.ContactPhone);
+                            $('#Factory_Type').val(data.worktype);
+                            
+                       }
+                    if(data.shoptype == '2'){
+                        $('#Shop_IDno').val(data.ShopId);
+                            $('#Shop_Name').val(data.shopname);
+                            $('#ShopOwnerName').val(data.ownername);
+                            $('#Shop_Address').val(data.loacationaddress);
+                            $('#Shop_Phno').val(data.shopphone);
+                            $('#Shop_Type').val(data.worktype);                           
+                    }
+                    $('#township_id').val(data.township_id);                           
+
+                   },
+                   error: function() { 
+                        console.log(data);
+                   }
+       });
+});
+
+
+  </script>
+
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

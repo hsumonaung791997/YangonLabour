@@ -1,0 +1,213 @@
+/* 
+scroll back to top of page css 
+*/
+#back2Top {
+  width: 40px;
+  line-height: 40px;
+border-top-right-radius: 10px;
+border-top-left-radius : 10px;
+  overflow: hidden;
+  z-index: 999;
+  display: none;
+  cursor: pointer;
+  -moz-transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+  background-color: #2F8DD8;
+  color: #fff;
+  text-align: center;
+  font-size: 22px;
+  text-decoration: none;
+}
+#back2Top:hover {
+  background-color: #2F8DD8;
+  color: #8fffe1;
+}
+/* scroll end */
+
+/* 
+padding height for input box
+*/
+.blank10{
+  height:10px;
+}
+
+/** {
+  box-sizing: border-box;
+}
+*/
+body {
+  background-color: #f1f1f1;
+}
+.form-background{
+    background-color: #ffffff;
+  margin: 20px auto;
+  /*font-family: Raleway;*/
+  padding: 40px;
+  width: 100%;
+  min-width: 300px
+}
+
+a.btn-primary{
+  font-family: myanmar3 !important;
+  letter-spacing: 0;
+}
+.btn-success{
+  font-family: myanmar3 !important;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+.btn-danger{
+  font-family: myanmar3 !important;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+button{
+  font-family: myanmar3 !important;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  /*font-size: 14px;*/
+  font-size: 1rem;
+  /*font-family: Raleway;*/
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+/*input.invalid {
+  background-color: #ffdddd;
+}
+*/
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #2F8DD8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  /*font-size: 17px;*/
+  font-size: 1rem;
+  /*font-family: Raleway;*/
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #2F8DD8;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {height: 30px; width: 30px; cursor: pointer; margin: 0 5px; color: #fff; background-color: #bbbbbb; border: none; border-radius: 50%; display: inline-block; opacity: 0.8; padding: 5px}
+
+.step.active {opacity: 1; background-color:#2F8DD8;}
+
+.step.finish {background-color:#bbbb; }
+ table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+} 
+th, td {
+  padding: 5px;
+  text-align: center;    
+}
+tr>td>input,label>input,td>input{
+	width: 50%;
+	text-align:center; 
+}
+#law2{
+	display: none;
+}
+#law1{
+	display: block;
+}
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+    legend.scheduler-border {
+        font-size: 1em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        border-bottom:none;
+    }
+body{
+  font-family: Myanmar3;
+}
+.myfont{
+  font-family: Myanmar3;
+}
+td{
+  font-size:1rem !important;
+}
+.dropbtn {
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+   background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 50px;
+  text-decoration: none;
+  display: block;
+  font-size: 13px;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+ul{
+  list-style-type:none;
+}
+.btn .btn-info{
+  font-family: myanmar3;
+
+}
+/* for datetime css**/
+ .ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+    border: 1px solid #dad55e;
+    background: blue;
+    color: #777620;
+}
